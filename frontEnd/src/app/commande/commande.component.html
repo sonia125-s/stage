@@ -1,0 +1,153 @@
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-6">
+  <ng-container >
+    <div class="card" >
+      <div class="card-header"  style="background-color: lightgreen">Clients Physiques</div>
+      <div class="card-body">
+        <div *ngIf="searchFormGroupeCP" >
+          <form [formGroup]="searchFormGroupeCP" (ngSubmit)="handleSearchClientPhysique()">
+            <div class="input-group">
+              <label class="input-group-text" style="background-color: lightgreen">keyword :</label>
+              <input type="text" formControlName="keyword" class="form-control">
+              <button class="btn btn-info" style="background-color: lightgreen">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+
+          </form>
+        </div>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>ID</th><th>Email</th><th>Adresse</th><th>Nom</th><th>age</th><th></th><th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let cp of clientsPhysique |async">
+            <td>{{cp.id}}</td>
+            <td>{{cp.email}}</td>
+            <td>{{cp.adresse}}</td>
+            <td>{{cp.nom}}</td>
+            <td>{{cp.age}}</td>
+            <td>
+              <button (click)="hundleAjouterCommande(cp.id)" class="btn btn-info" style="background-color: lightgreen"><i class="bi bi-plus"></i></button>
+
+            </td>
+            <td>
+              <button (click)="hundleAffichCommande(cp.id)" class="btn btn-info" style="background-color: lightgreen"><i class="bi bi-box-seam"></i></button>
+
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+
+      <ng-container >
+        <div class="card">
+          <div class="card-header" style="background-color: lightgreen">Clients Morale</div>
+          <div class="card-body">
+            <div *ngIf="searchFormGroupeCM" >
+              <form [formGroup]="searchFormGroupeCM" (ngSubmit)="handleSearchClientMorale()">
+                <div class="input-group">
+                  <label class="input-group-text" style="background-color: lightgreen">keywordd :</label>
+                  <input type="text" formControlName="keyword" class="form-control">
+                  <button class="btn btn-info" style="background-color: lightgreen">
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+
+              </form>
+            </div>
+            <table class="table">
+              <thead>
+              <tr>
+                <th>ID</th><th>Email</th><th>Adresse</th><th>Statut</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let cp of clientsMorale |async">
+                <td>{{cp.id}}</td>
+                <td>{{cp.email}}</td>
+                <td>{{cp.adresse}}</td>
+                <td>{{cp.statut}}</td>
+
+                <td>
+                  <button (click)="hundleAjouterCommande(cp.id)" class="btn btn-info" style="background-color: lightgreen"><i class="bi bi-plus"></i></button>
+
+                </td>
+                <td>
+                  <button (click)="hundleAffichCommande(cp.id)" class="btn btn-info" style="background-color: lightgreen"><i class="bi bi-box-seam"></i></button>
+
+                </td>
+
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </ng-container>
+
+</div>
+    <div class="col-6">
+      <ng-container>
+     <div class="card" *ngIf="var1==2">
+       <div class="card-header">list commandes</div>
+       <div class="card-body">
+
+
+         <table class="table">
+           <thead>
+           <tr>
+             <th>ID</th><th>date_creation</th><th>date_envoi</th><th>Total</th><th>etat</th><th>lieu</th><th></th><th></th>
+           </tr>
+           </thead>
+           <tbody>
+           <tr *ngFor="let c of commandesClient |async">
+             <td>{{c.id}}</td>
+             <td>{{c.date_creation | date: 'dd-MM-yyyy:HH-mm-ss'}}</td>
+             <td>{{c.date_envoi | date: 'dd-MM-yyyy'}}</td>
+             <td>{{c.prixTotal}}</td>
+             <td>{{c.etat}}</td>
+             <td>{{c.lieu}}</td>
+             <td>
+               <button (click)="hundledeleteCommande(c.id)" class="btn btn-danger"><i class="bi bi-trash3"></i></button>
+             </td>
+             <td>
+               <button (click)="hundleDetailCommande(c.id)" class="btn btn-success"><i class="bi bi-eye"></i></button>
+             </td>
+           </tr>
+           </tbody>
+         </table>
+
+
+
+
+     </div>
+     </div>
+        <div class="card" *ngIf="var1==3">
+
+          <div class="card-header">ajouter commande</div>
+          <div class="card-body">
+            <form [formGroup]="ajoutCommande" (ngSubmit)="handleAjoutCommnade()" method="post" >
+              <div class="mb-3">
+              <label for="date" class="input-group-text">Date :  </label>
+              <input type="date" id="date" formControlName="date"  class="form-control"/>
+              </div>
+              <div class="mb-3">
+              <label for="lieu" class="input-group-text">Lieu :  </label>
+              <input type="text" id="lieu" formControlName="lieu" class="form-control" />
+              </div>
+              <div class="mb-3">
+              <button class="btn btn-success ">Save </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </ng-container>
+
+    </div>
+  </div>
+</div>

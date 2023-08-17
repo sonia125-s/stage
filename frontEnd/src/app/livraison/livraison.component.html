@@ -1,0 +1,37 @@
+<div class="container mt-2">
+  <div class="row">
+    <div  class="col col-md-10">
+      <div class="card">
+        <div class="card-header">Commande</div>
+        <div class="card-body">
+
+          <div>
+            <label for="idSearch" class="input-group-text">Rechercher par ID :</label>
+            <input type="number" id="idSearch" [formControl]="searchControl"  class="form-control" [value]="valeurPar">
+          </div>
+          <a>{{valeurPar}}</a>
+          <table class="table">
+            <thead>
+            <tr>
+              <th>ID</th><th>creation</th><th>envoi</th><th>Total</th><th>etat</th><th>lieu</th><th>livrer la commande</th><th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let commande of filteredCommandes">
+              <td>{{ commande.id }}</td>
+              <td>{{ commande.date_creation | date: 'dd-MM-yyyy' }}</td>
+              <td>{{ commande.date_envoi | date: 'dd-MM-yyyy' }}</td>
+              <td>{{ commande.prixTotal }}</td>
+              <td>{{ commande.etat }}</td>
+              <td>{{ commande.lieu }}</td>
+              <td> <button (click)="metreEnLivraison(commande.id)" class="btn btn-info"> <i class="bi bi-truck"></i></button></td>
+            </tr>
+            </tbody>
+          </table>
+          <p *ngIf="filteredCommandes.length === 0 && searchControl.value">Aucune commande trouvée.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

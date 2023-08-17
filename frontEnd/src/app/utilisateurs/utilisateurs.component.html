@@ -1,0 +1,144 @@
+<div class="container mt-2">
+  <div class="row">
+    <div  class="col col-md-11">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <div>Utilisateurs</div>
+          <button (click)="ajouterUser()" class="btn btn-info"> <i class="bi bi-plus"></i> </button>
+        </div>
+        <div class="card-body">
+
+
+          <div>
+            <label for="idSearch" class="input-group-text">Rechercher par ID :</label>
+            <input type="number" id="idSearch" [formControl]="searchControl"  class="form-control" >
+          </div>
+
+          <table class="table">
+            <thead>
+            <tr>
+              <th>id</th><th>nom</th><th>email</th><th>username</th><th>password</th><th>role</th><th></th><th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of filtredUsers">
+              <td>{{ user.id }}</td>
+              <td>{{ user.nom }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.username}}</td>
+              <td>{{ user.password }}</td>
+              <td>{{ user.role }}</td>
+              <td> <button (click)="updateUser(user)" class="btn btn-info"> <i class="bi bi-pencil"></i></button></td>
+
+              <td> <button  class="btn btn-danger" (click)="deteteUser(user.id)"> <i class="bi bi-trash3"></i></button></td>
+            </tr>
+            </tbody>
+          </table>
+          <p *ngIf="filtredUsers.length === 0 && searchControl.value">Aucune commande trouvée.</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div *ngIf="showEditForm" class="container mt-2">
+  <div class="row">
+    <div class="col col-md-11">
+      <div class="card">
+        <div class="card-header">
+          Modifier Produit
+          <button (click)="finishEdit()" class="btn btn-secondary">Annuler</button>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="modifierUser" (ngSubmit)="enregistrerModification()">
+            <div class="mb-3">
+              <label for="id" class="input-group-text">id :  </label>
+              <input type="text" id="id" formControlName="id" class="form-control" [readonly]="true" />
+            </div>
+
+            <div class="mb-3">
+              <label for="nom" class="input-group-text">description:  </label>
+              <input type="text" id="nom" formControlName="nom" class="form-control"  />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="input-group-text">description:  </label>
+              <input type="text" id="email" formControlName="email" class="form-control"  />
+            </div>
+            <div class="mb-3">
+              <label for="username" class="input-group-text">description:  </label>
+              <input type="text" id="username" formControlName="username" class="form-control"  />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="input-group-text">description:  </label>
+              <input type="password" id="password" formControlName="password" class="form-control"  />
+            </div>
+            <div class="mb-3">
+              <label for="role" class="input-group-text">description:  </label>
+              <input type="text" id="role" formControlName="role" class="form-control"  />
+            </div>
+            <button  class="btn btn-primary">Enregistrer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div *ngIf="showaddForm" class="container mt-2">
+  <div class="row">
+    <div class="col col-md-11">
+      <div class="card">
+        <div class="card-header">
+          Ajout Utilisateur
+          <button (click)="finishajout()" class="btn btn-secondary">Annuler</button>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="ajoutUser" (ngSubmit)="ajouterUserr()">
+
+            <div class="mb-3">
+              <label for="nom" class="input-group-text">nom:  </label>
+              <input type="text" id="nom" formControlName="nom" class="form-control"  />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="input-group-text">email:  </label>
+              <input type="text" id="email" formControlName="email" class="form-control"  />
+            </div>
+            <div class="mb-3">
+              <label for="username" class="input-group-text">email:  </label>
+              <input type="text" id="username" formControlName="username" class="form-control"  />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="input-group-text">password:  </label>
+              <input type="password" id="password" formControlName="password" class="form-control"  />
+            </div>
+            <div class="mb-3">
+              <label for="role" class="input-group-text">role:  </label>
+              <input type="text" id="role" formControlName="role" class="form-control"  />
+            </div>
+            <button  class="btn btn-primary">Enregistrer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

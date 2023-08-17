@@ -1,0 +1,127 @@
+
+<a>{{idCommande}}</a>
+<div class="container mt-2">
+  <div class="row" >
+    <div class="col col-md-6">
+      <div class="card">
+        <div class="card-header"></div>
+        <div class="card-body">
+          <form [formGroup]="commandeFormGroupe" (ngSubmit)="handlRechercheCommande()" >
+            <div class="input-group">
+              <label class="input-group-text"> Id Commande : </label>
+              <input type="text" formControlName="commandeId"   class="form-control">
+              <button  class="btn btn-info">
+                <i class="bi bi-search"></i>
+
+              </button>
+
+            </div>
+          </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <ng-container *ngIf="commandeDetail" >
+            <div class="mb-2">
+              <label> Commande Id :</label>
+              <label><strong>{{commandeDetail.id}}</strong></label>
+            </div>
+            <div class="mb-2">
+              <label> date_creation :</label>
+              <label><strong>{{commandeDetail.date_creation}}</strong></label>
+            </div>
+            <div class="mb-2">
+              <label> date_envoi :</label>
+              <label><strong>{{commandeDetail.date_envoi}}</strong></label>
+            </div>
+            <div class="mb-2">
+              <label> lieu :</label>
+              <label><strong>{{commandeDetail.lieu}}</strong></label>
+            </div>
+            <div class="mb-2">
+              <label> prixTotal :</label>
+              <label><strong>{{commandeDetail.prixTotal}}</strong></label>
+            </div>
+
+            <table class="table">
+              <thead>
+              <th>ID</th><th>quantite</th><th>IDproduit</th><th>prix produit</th><th>description</th>
+              </thead>
+              <tbody>
+              <tr *ngFor="let ligne of commandeDetail.ligneCommandeDTOList">
+                <td>{{ligne.id}}</td>
+                <td>{{ligne.quantite}}</td>
+                <td>{{ligne.produitDTO.id}}</td>
+                <td>{{ligne.produitDTO.prix}}</td>
+                <td>{{ligne.produitDTO.description}}</td>
+                <td>
+                  <button (click)="annulerLigneCommande(ligne.id)" class="btn btn-danger"><i class="bi bi-trash3"></i></button>
+
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+
+
+
+
+
+
+
+
+
+          </ng-container>
+
+
+
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="col col-md-6">
+      <div class="card" *ngIf="commandeDetail">
+        <div class="card-header">ajouter produit a la commande</div>
+        <div class="card-body">
+          <form [formGroup]="ajoutLigneForm" (ngSubmit)="hundleAjouterLigneCommande()">
+            <div class="mb-3">
+            <label class="input-group-text">Produit :</label>
+            <select id="produit" formControlName="produit" class="form-control">
+              <option *ngFor="let produit of produits" [value]="produit.id">
+                {{produit.id}} - {{produit.prix}} - {{produit.description}}
+              </option>
+            </select>
+            </div>
+            <div *ngIf="ajoutLigneForm.controls['produit'].invalid && ajoutLigneForm.controls['produit'].touched">
+              Veuillez sélectionner un produit.
+            </div>
+            <div class="mb-3">
+            <label class="input-group-text">Quantité :</label>
+            <input type="number" id="quantite" formControlName="quantite" class="form-control"/>
+            </div>
+            <div *ngIf="ajoutLigneForm.controls['quantite'].invalid && ajoutLigneForm.controls['quantite'].touched">
+              Veuillez entrer une quantité valide (au moins 1).
+            </div>
+            <div class="mb-3">
+            <button type="submit" [disabled]="ajoutLigneForm.invalid">Ajouter à la commande</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
